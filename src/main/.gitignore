@@ -1,0 +1,7 @@
+.gradle
+*.class
+*.dylib
+*.bin
+*.jar
+*.so
+*.so.*
