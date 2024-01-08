@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
@@ -13,8 +14,8 @@ import frc.robot.Constants;
 public class Gyro extends SubsystemBase {
   
   //create a pigeonIMU gyro check the constants if a problem occurs with the port
- WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(Constants.gyroPort); 
-
+TalonSRX _talon2 = new TalonSRX(Constants.gyroPort); 
+WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(_talon2); 
 public Gyro(){
                //gets the general status VI
               PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
