@@ -8,20 +8,23 @@ import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Gyro extends SubsystemBase {
   
-  //create a pigeonIMU gyro
- WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(0); 
+  //create a pigeonIMU gyro check the constants if a problem occurs with the port
+ WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(Constants.gyroPort); 
 
 public Gyro(){
                //gets the general status VI
               PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
               m_gyro.getGeneralStatus(genStatus);
 
+              //sets the yaw and the fuseHeading
               m_gyro.setYaw(0);
               m_gyro.setFusedHeading(0);
 
+              //calibrates the gyro might not work
               m_gyro.enterCalibrationMode(CalibrationMode.Temperature);
                m_gyro.enterCalibrationMode(CalibrationMode.Accelerometer);
                 m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer12Pt);

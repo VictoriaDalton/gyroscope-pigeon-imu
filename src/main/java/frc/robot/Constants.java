@@ -28,6 +28,8 @@ package frc.robot;
 */
 
 public final class Constants {
+  // gyro port will change
+  public static final int gyroPort = 0;
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
