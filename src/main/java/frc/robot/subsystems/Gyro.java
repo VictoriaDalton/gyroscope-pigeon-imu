@@ -4,10 +4,9 @@
 
 package frc.robot.subsystems;
 import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
-
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyro extends SubsystemBase {
@@ -15,26 +14,24 @@ public class Gyro extends SubsystemBase {
   //create a pigeonIMU gyro
  WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(0); 
 
+public Gyro(){
+               //gets the general status VI
+              PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
+              m_gyro.getGeneralStatus(genStatus);
+
+              m_gyro.setYaw(0);
+              m_gyro.setFusedHeading(0);
+
+              m_gyro.enterCalibrationMode(CalibrationMode.Temperature);
+               m_gyro.enterCalibrationMode(CalibrationMode.Accelerometer);
+                m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer12Pt);
+                 m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer360);
+}
+
  public void robotInit() {
     // Places a compass indicator for the gyro heading on the dashboard
     Shuffleboard.getTab("gyro data").add(m_gyro);
 }
-
-
-  public Command startCommand() {
-   
-    return runOnce(
-        () -> {
-             //gets the general status VI
-              PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
-              m_gyro.getGeneralStatus(genStatus);
-        });
-  }
-
-  public boolean exampleCondition() {
-
-    return false;
-  }
 
   @Override
   public void periodic() {
