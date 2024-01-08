@@ -20,6 +20,7 @@ public class Gyro extends SubsystemBase {
     Shuffleboard.getTab("gyro data").add(m_gyro);
 }
 
+
   public Command startCommand() {
    
     return runOnce(
@@ -38,7 +39,7 @@ public class Gyro extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double [] yawPitchRoll = new double[3];
+    double[] yawPitchRoll = new double[3];
      m_gyro.getYawPitchRoll(yawPitchRoll);
   }
 

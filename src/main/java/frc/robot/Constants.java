@@ -12,6 +12,21 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+
+ //in case of need. Those are the calculation for the yaw,pitch and roll I found online
+/** 
+ float alpha=(float) 0.5;
+    double fXg=0.0,fYg=0.0,fZg=0.0;
+    fXg = xx * alpha + (fXg * (1.0 - alpha));
+    fYg = yy * alpha + (fYg * (1.0 - alpha));
+    fZg = zz * alpha + (fZg * (1.0 - alpha));
+
+    //Roll,Pitch & Yaw Equations
+   double roll  = (Math.atan2(-fYg, fZg)*180.0)/3.14;
+   double pitch =( Math.atan2(fXg, Math.sqrt(fYg*fYg + fZg*fZg))*180.0)/3.14;
+   double yaw = 180 * Math.atan (fZg/Math.sqrt(fXg*fXg + fZg*fZg))/3.14;
+*/
+
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
