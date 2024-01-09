@@ -22,7 +22,7 @@ public Gyro(){
               PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
               m_gyro.getGeneralStatus(genStatus);
 
-              //sets the yaw and the fuseHeading
+              //sets the yaw,Pitch,Roll and the fuseHeading
               m_gyro.setYaw(0);
               m_gyro.setFusedHeading(0);
 
@@ -31,19 +31,18 @@ public Gyro(){
                m_gyro.enterCalibrationMode(CalibrationMode.Accelerometer);
                 m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer12Pt);
                  m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer360);
-
-                       
-                         
-                         
 }
 
- public void robotInit() {
-    // Places a compass indicator for the gyro heading on the dashboard
-      double [] yawPitchRoll = new double[3];
-                         m_gyro.getYawPitchRoll(yawPitchRoll);
+ public double[] getYawPitchRoll() {
+     double [] yawPitchRoll = new double[3];
+      m_gyro.getYawPitchRoll(yawPitchRoll);
+      return yawPitchRoll;
+  }
 
-SmartDashboard.putNumberArray("yaw pitch & roll", yawPitchRoll);
-Shuffleboard.getTab("gyro info").add("yes", yawPitchRoll);
+ public void robotInit() {
+  //to test
+SmartDashboard.putNumberArray("yaw pitch & roll", getYawPitchRoll());
+Shuffleboard.getTab("gyro info").add("yes", m_gyro.getYawPitchRoll(getYawPitchRoll()));
 
 
 
@@ -58,9 +57,5 @@ Shuffleboard.getTab("gyro info").add("yes", yawPitchRoll);
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-  }
-
-  public void getYaw() {
-     m_gyro.getAngle();
   }
 }
