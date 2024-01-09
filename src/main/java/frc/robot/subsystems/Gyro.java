@@ -15,8 +15,8 @@ import frc.robot.Constants;
 public class Gyro extends SubsystemBase {
   
   //create a pigeonIMU gyro check the constants if a problem occurs with the port
-TalonSRX _talon2 = new TalonSRX(Constants.gyroPort); 
-WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(_talon2); 
+//TalonSRX _talon2 = new TalonSRX(Constants.gyroPort); 
+WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(Constants.gyroPort); 
 public Gyro(){
                //gets the general status VI
               PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
