@@ -8,6 +8,7 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -30,22 +31,36 @@ public Gyro(){
                m_gyro.enterCalibrationMode(CalibrationMode.Accelerometer);
                 m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer12Pt);
                  m_gyro.enterCalibrationMode(CalibrationMode.Magnetometer360);
+
+                       
+                         
+                         
 }
 
  public void robotInit() {
     // Places a compass indicator for the gyro heading on the dashboard
-    Shuffleboard.getTab("gyro data").add(m_gyro);
+      double [] yawPitchRoll = new double[3];
+                         m_gyro.getYawPitchRoll(yawPitchRoll);
+
+SmartDashboard.putNumberArray("yaw pitch & roll", yawPitchRoll);
+Shuffleboard.getTab("gyro info").add("yes", yawPitchRoll);
+
+
+
 }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double[] yawPitchRoll = new double[3];
-     m_gyro.getYawPitchRoll(yawPitchRoll);
+
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public void getYaw() {
+     m_gyro.getAngle();
   }
 }
