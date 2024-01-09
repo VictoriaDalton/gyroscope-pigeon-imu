@@ -3,29 +3,23 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
-import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
-
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Gyro extends SubsystemBase {
   
-  //create a pigeonIMU gyro check the constants if a problem occurs with the port
-//TalonSRX _talon2 = new TalonSRX(Constants.gyroPort); 
-private NetworkTableEntry m_networkTableEntry;
+  //make a new pigeon
+WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(Constants.gyroPort);
+ 
+//dislplay the yaw pitch and roll on the ShuffleBoard
+GenericEntry m_gyroDataEntry = Shuffleboard.getTab("gyro info").add("gyro Yaw Pitch and Roll data",
+new double[]{0.0,0.0,0.0}).getEntry();
 
-private ShuffleboardTab m_ShuffleboardTab = Shuffleboard.getTab("gyro info");
-private GenericEntry gyroPlease;
-WPI_PigeonIMU m_gyro = new WPI_PigeonIMU(Constants.gyroPort); 
-private double[] gyroData = {0.0,0.0,0.0};
+//class constuctor
 public Gyro(){
                //gets the general status VI
               PigeonIMU.GeneralStatus genStatus = new PigeonIMU.GeneralStatus();
@@ -45,8 +39,8 @@ public Gyro(){
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    this.gyroData = getYawPitchRoll();
-    gyroPlease.setDoubleArray(gyroData);
+  m_gyroDataEntry.setDoubleArray(getYawPitchRoll());
+  
    
   }
 
@@ -57,9 +51,6 @@ public Gyro(){
   }
 
   public void robotInit() {
-  //to test
-SmartDashboard.putNumberArray("yaw pitch & roll", gyroData);
-gyroPlease = m_ShuffleboardTab.add("yes",gyroData).getEntry();
  }
 }
 
